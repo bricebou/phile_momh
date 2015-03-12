@@ -1,7 +1,10 @@
-Pico-momh
-=========
+phile_momh
+==========
 
-A simple and basic theme for Pico CMS with a basic responsive support for my website [momh.fr](http://momh.fr/).
+A simple and basic theme for PhileCMS with a basic responsive support for my website, based on my pico_momh template for PicoCMS available on [GitHub](https://github.com/bricebou/pico_momh).
+
+
+## Below : update needed
 
 It will be extended gradually, accordingly to my needs.
 
