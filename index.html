@@ -8,21 +8,24 @@
 
     <section id="content">
         <div class="inner">
-            {% if is_front_page %}
-            <!-- front page -->
-                {% for page in paged_pages %}
-                    <article class="post">
-                        <h1><a href="{{ page.url }}">{{ page.title }}</a></h1>
-                        <p class="meta clearfix">
-                            <span class="date_lsp">
-                                le {{ page.date|date("d/m/Y", "Europe/Paris") }} {% if page.category %}dans {{ page.category }} {% endif %}
-                            </span>
-                            <span class="tags_lsp">
-                                {% if page.tags %}<i class="fa fa-tags"></i>{% for tag in page.tags %}<a class="hvr_over" href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>{% endfor %}{% endif %} 
-                            </span>
-                        </p>
-                        <p class="excerpt">{{ page.excerpt }}</p>
-                    </article>
+            {# front page :  check the title of the content root index.md #}
+            {% if meta.title == 'Blog' %}
+                {% for page in pages %}
+                    {# keeping only blog posts based on the template meta #}
+                    {% if page.meta.template == 'index' and page.meta.title != 'Blog' %}
+                        <article class="post">
+                            <h1><a href="{{ page.url }}">{{ page.title }}</a></h1>
+                            <p class="meta clearfix">
+                                <span class="date_lsp">
+                                    le {{ page.meta.date|date(config.date_format) }} {% if page.meta.category %}dans {{ page.meta.category }} {% endif %}
+                                </span>
+                                <span class="tags_lsp">
+                                    {% if page.meta.tags_array %}<i class="fa fa-tags"></i>{% for tag in page.meta.tags_array %}<a class="hvr_over" href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>{% endfor %}{% endif %} 
+                                </span>
+                            </p>
+                            <p class="excerpt">{{ page.content|striptags|limit_words }}</p>
+                        </article>
+                    {% endif %}
                 {% endfor %}
                 
                 <div class="pagination clearfix">
