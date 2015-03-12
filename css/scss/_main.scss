@@ -1,0 +1,617 @@
+html {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  padding-bottom: 1rem;
+  min-height: 100%;
+  background-color: $color_bg;
+}
+
+img {
+	max-width: 100%;
+}
+
+.inner {
+	max-width: $width_max;
+	margin: auto;
+	color: $color_txt;
+	padding: 0 $inner_pad;
+}
+
+// clear
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+
+// Links
+a,
+a:visited {
+	text-decoration: none;
+	color: $color_a;
+	transition: all 0.2s linear 0s;
+
+	&:hover,
+	&:active {
+		color: $color_hvr;
+	}
+	
+	// &.hvr_under:hover,
+	// &.hvr_under:active {
+	// 	text-decoration: underline;
+	// }
+
+	&.hvr_over:hover,
+	&.hvr_over:active {
+		text-decoration: overline;
+	}
+}
+
+.article a[href^="http"]:before {
+	font-family: "FontAwesome";
+	content: "\00A0\f08e\00A0";
+	font-size: 0.8rem;
+}
+
+.article a[href^="http://localhost"]:before,
+.article a[href^="http://momh.fr"]:before,
+.article .syntaxhighlighter a[href^="http"]:before { 
+	font-family: "FontAwesome";
+	content: "";
+}
+
+// Mail
+span.email {
+	direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+code {
+  background: none repeat scroll 0 0 #eee;
+  color: #333;
+  font-family: Courier,"Courier New",Monaco,Tahoma;
+  padding: 0 2px;
+}
+
+#header {
+	margin-bottom: 3em;
+  padding: 0 0 1em;
+ 	background-color: $color_hbg;
+
+	& h1#site_title {
+		font-size: 2rem;
+		font-family: $font_title;
+		font-weight: 600;
+		text-align: center;
+		margin-bottom: 2rem;
+    margin-top: 1rem;
+	}
+
+	& a, & a:visited {
+		color: $color_ha;
+	}
+	& a:hover, & a:active {
+		color: $color_hvr;
+	}
+	
+	nav, nav ul {
+	    display: block;
+	    margin: 0;
+	    width: 100%;	    
+	}
+	nav {
+    // border-bottom: 1px solid #eaeaea;
+    // padding: 5px 0 2em;
+
+    & ul {
+	    padding: 0;
+	    float: left;
+	    position: relative;
+		}
+
+		& > ul {
+			text-align: right;
+
+			& > li {
+				color: $color_ha;
+				line-height: 1.1;
+
+				
+
+				& a, & a:hover, & a:visited, & a:active {
+					color: unset;
+					text-decoration: none;
+				}
+				&:hover {
+		    	// text-decoration: overline;
+		    	border-top: 1px solid $color_hvr;
+		    	color: $color_hvr;
+
+		    	& > ul {
+						display: block;
+			    }
+			    &:last-of-type:hover > ul {
+						text-align: right;
+			    }
+	    	}
+
+	    	@media only screen and (max-width: 700px) {
+					& {
+				    margin: 0;
+				    width: 49%;
+				    text-align: left;
+				    line-height: inherit;
+				  }
+
+			    &:hover {
+						border: none;
+				    ul {
+							display: none;
+						}
+			    }
+				}
+				@media only screen and (max-width: 400px) {
+					& {
+					    margin: 0;
+					    width: 100%;
+					    text-align: left;
+					    line-height: inherit;
+					  }
+
+			    &:hover {
+						border: none;
+				    ul {
+							display: none;
+						}
+			    }
+				}
+			}
+		}
+
+		& li {
+	    display: inline-block;
+	    list-style-type: none;
+	    margin-right: 1em;
+	    text-align: center;
+	    width: auto;
+
+
+	    &:last-of-type {
+	    	margin-right: 0;
+	    }
+
+	    & > ul {
+	    	display: none;
+		    float: none;
+		    left: 0;
+		    position: absolute;
+		    text-align: center;
+		    padding: 1.4em 0 1em;
+		    color: $color_ha;
+
+				& a, & a:visited {
+		    		color: $color_a;
+	    	}
+	    	& a:active, & a:hover {
+	    		color: $color_hvr;
+	    		text-decoration: underline;
+	    	}
+
+	    	& > li {
+	    		width: auto;
+	    		margin-right: 0;
+
+	    		&:before {
+		    		content: " / ";
+		    	}
+		    	&:last-of-type:after {
+		    		content: " /";
+		    	}
+	    	}
+	    }
+	    
+		}
+	}
+} // END #header
+
+footer {
+  bottom: 0;
+  height: 2rem;
+  // margin-bottom: 2rem;
+  margin-bottom: 0;
+  left: 0;
+  padding: 1rem 0;
+  position: absolute;
+  right: 0;
+  font-size: 0.8rem;
+	& .footer_content {
+		border-top: 1px solid $color_brd;
+
+		& p:first-child {
+			float: left;
+		}
+		& p:last-child {
+			float: right;
+			text-align: right;
+		}
+
+		@media only screen and (max-width: 700px) {
+			& p {
+		    margin: 0;
+		    // width: 49%;
+			}
+		}
+		@media only screen and (max-width: 400px) {
+			& p {
+			    margin: 0;
+			    float: none!important;
+			    width: 100%;
+			    text-align: left!important;
+			}
+		}
+	}
+}
+
+article {
+	margin-bottom: 3rem;
+
+	& h1,
+	// for titles in tag pages
+	& h2.h1 {
+		border-bottom: 1px solid #e2ebce;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+	}
+
+	& p.meta {
+		font-size: 0.8rem;
+		font-style: italic;
+
+		& span.date_lsp {
+			float: left;
+		}
+
+		& span.tags_lsp {
+			float: right;
+
+			& a:after {
+	    		content: " ";
+    	}
+    	& a:last-of-type:after {
+    		content: "";
+    	}
+		}
+
+		@media only screen and (max-width: 700px) {
+			& span.date_lsp,
+			& span.tags_lsp {
+					display: inline-block;
+			    margin: 0;
+			    float: none;
+			    width: 100%;
+			    text-align: left;
+			}
+		}
+	}
+}
+
+// Based on http://brajeshwar.github.io/paginate/
+.pagination {
+	text-align: center;
+	margin-bottom: 4rem;
+	margin-top: 2rem;
+	padding-top: 2rem;
+	border-top: 1px solid $color_brd;
+
+	& ul {
+		list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+		
+
+		& li {
+			display: none;
+			
+			&.pi_a {
+				display: inline;
+			}
+			&:first-child {
+	    	display: inline;
+	    }
+	    &:last-child {
+				display: inline;
+	    }
+			
+	    & a {
+		    border-radius: 3px;
+		    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+		    display: inline-block;
+		    font-size: 0.8rem;
+		    margin: 1px 2px;
+		    padding: 5px 10px;
+		    text-decoration: none;
+
+		    &:hover, &:focus {
+		    	background-color: $color_hvr;
+		    	color: #fff;
+		    }
+
+		    
+		    &.page_active {
+		    	background-color: $color_hbg;
+			    border-color: $color_brd;
+			    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.75) inset;
+			    color: #fff;
+			    text-shadow: 0 1px 0 black;
+
+			    & .fa {
+			    	display: none;
+			    }
+			    & span {
+			    	display: inline-block;
+			    }
+		    }
+    	}
+		}
+	}
+	@media only screen and (min-width: 700px) {
+		& ul {
+			list-style: none outside none;
+	    margin: 0;
+	    padding: 0;
+	    text-align: center;
+
+	    overflow: hidden;
+	    padding: 0 10%;
+	    position: relative;
+			text-overflow: ellipsis;
+	    white-space: nowrap;
+	    width: 80%;
+
+	    & li {
+	    	display: inline;
+
+	    	&:first-child {
+		    	left: 0;
+			    margin-left: 0;
+			    position: absolute;
+		    }
+		    &:last-child {
+		    	margin-right: 0;
+			    position: absolute;
+			    right: 0;
+		    }
+
+		    & a.page_active {
+		    	span {
+		    		display: none;
+		    	}
+		    	.fa {
+		    		display: inline;
+		    		&:after {
+					    content: "";
+						}
+		    	}
+		    }
+	    }
+		}
+	}
+}
+
+// Previous/Next links in blog posts
+.pagination_article {
+	border-top: 1px solid $color_brd;
+  margin-top: 3rem;
+  padding-top: 1rem;
+
+	& a {
+		text-align:center;
+		display: block;
+		position: relative;
+
+		&.pa_older {
+			& .pa_arrow {
+				margin-left: 2%;
+			}
+			& .pa_title {
+				text-align: right;
+			}
+		} 
+		&.pa_recent .pa_arrow {
+			margin-right: 2%;
+		}
+
+		& div {
+		  display:inline-block;
+		  vertical-align:middle;
+		  text-align:left;
+		  &.pa_arrow {
+				font-size: 2rem;
+	    	width: 1.5rem;
+
+	    	
+			}
+			&.pa_title {
+				max-width: 75%;
+				& span {
+					font-size: 0.8rem;
+				}
+				& .pa_date {
+					font-style: italic;
+					display: inline-block;
+					width: 100%;
+    			font-size: 0.7rem;
+				}
+			}
+		}
+		
+	}
+	@media only screen and (min-width: 700px) {
+		& .pa_older .pa_arrow {
+			margin-left: 1rem;
+			transition: margin-left 0.8s ease 0.1s;
+		}
+		& .pa_recent .pa_arrow {
+			margin-right: 1rem;
+			transition: margin-right 0.8s ease 0.1s;
+		}
+		& .pa_older:hover .pa_arrow	{
+			
+			margin-left: 3rem;
+		}
+		& .pa_recent:hover .pa_arrow {
+			margin-right: 3rem;
+		}
+	}	
+}
+
+// For Syntaxhighliter -- override shCore.css
+.syntaxhighlighter {
+	padding: 0.5em 0;
+
+	& > table {
+
+		& > tbody {
+
+			& > tr {
+
+				& > td {
+
+					& > div {
+						font-size: 0.8rem!important;
+
+						& > div > code {
+							font-size: 0.8rem!important;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.tags_list {
+	list-style: none outside none;
+	padding: 0;	
+
+  -webkit-column-count: 5; /* Chrome, Safari, Opera */
+  	 -moz-column-count: 5; /* Firefox */
+  				column-count: 5;
+	-webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+		 -moz-column-gap: 40px; /* Firefox */
+  				column-gap: 40px;
+  @media only screen and (max-width: 700px) {
+		& {
+	    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+	  		 -moz-column-count: 3; /* Firefox */
+		  				column-count: 3;
+			-webkit-column-gap: 30px; /* Chrome, Safari, Opera */
+	  		 -moz-column-gap: 30px; /* Firefox */
+	  		 			column-gap: 30px;
+		}
+	}
+	@media only screen and (max-width: 400px) {
+		& {
+	    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+	  		 -moz-column-count: 2; /* Firefox */
+		  				column-count: 2;
+			-webkit-column-gap: 20px; /* Chrome, Safari, Opera */
+	  		 -moz-column-gap: 20px; /* Firefox */
+	  		 			column-gap: 20px;
+		}
+	}
+} 
+
+ul.wlist, ul.wlist li {
+	list-style: none;
+	padding:0;
+}
+
+.vtl {
+	margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+
+  &:before {
+		background-color: #374641;
+	  bottom: 0;
+	  content: "";
+	  left: 5.4rem;
+	  position: absolute;
+	  top: 0;
+	  width: 0.15rem;
+	}
+	& > li {
+		position: relative;
+
+		& a:hover .vtl_point .fa:before {
+			content: "\f111";
+		}
+
+		& .vtl_date {
+			display: block;
+		  padding-right: 2rem;
+		  position: absolute;
+		  top: 0.2rem;
+		  width: 4rem;
+
+		  & span {
+				display: block;
+				font-size: 0.8rem;
+				font-style: italic;
+				text-align: right;
+			}
+		}
+
+		& .vtl_label {
+		  margin: 0 0 1rem 6rem;
+		  padding: 0rem 1rem 1rem;
+		  position: relative;
+		}
+
+		& .vtl_point {
+			color: #374641;
+		  font-size: 1rem;
+		  left: 5.05rem;
+		  position: absolute;
+		  top: 0;
+
+		  & .fa:before {
+				content: "\f10c";
+			}
+			& .fa:after {
+				content: "";
+			}
+		}
+	}
+}
+.supcateg > li {
+	margin-bottom: 2rem;
+	
+	&:last-child > ul{
+		margin-bottom: 6rem;
+	}
+	& .fa:before {
+		content: "\f10c";
+	}
+	& a:hover .fa {
+		color: $color_hbg;
+	}
+	& a:hover .fa:before {
+		content: "\f111";
+	}
+}
+
+.categ > li:last-child {
+	margin-bottom: 6rem;
+}
