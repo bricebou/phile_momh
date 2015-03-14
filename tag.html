@@ -9,12 +9,12 @@
     <section id="content">
         <div class="inner"> 
 
-            <h1><i class="fa fa-tag"></i><a href="{{ page.url }}">#{{ current_tag }}</a></h1>
+            <h1><i class="fa fa-tag"></i><a href="{{ base_url }}/{{ page.url }}">#{{ current_tag }}</a></h1>
             
             {% for page in pages %}
                 {% if page.meta.tags_array and current_tag in page.meta.tags_array %}
                     <article class="post">
-                        <h1><a href="{{ page.url }}">{{ page.title }}</a></h1>
+                        <h1><a href="{{ base_url }}/{{ page.url }}">{{ page.title }}</a></h1>
                         <p class="meta clearfix">
                             <span class="date_lsp">
                                 le {{ page.meta.date|date(config.date_format) }} {% if page.meta.category %}dans {{ page.meta.category }} {% endif %}

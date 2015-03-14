@@ -18,7 +18,7 @@
                     {% for page in pages|sort %}
                         {% if page.meta.category is sameas(cate) and page.meta.template != 'category' %}
                         <li>
-                            <a href="/{{ page.url }}">
+                            <a href="{{ base_url }}/{{ page.url }}">
                                 <i class="fa"></i>
                                 {{ page.title }}
                             </a>
@@ -27,7 +27,7 @@
                             {% set catesub = page.title %}
                             {% if catesub is not sameas(cate) %}
                                 <li>
-                                    <a href="/{{ page.url }}">
+                                    <a href="{{ base_url }}/{{ page.url }}">
                                         <i class="fa"></i>
                                         {{ page.title }}
                                     </a>
@@ -35,8 +35,8 @@
                                     {% for page in pages %}
                                         {% if page.meta.category is sameas(catesub) and page.meta.template != 'category' %}
                                             <li>
-                                                <a href="/{{ page.url }}">
-                                                    <time class="vtl_date meta" datetime="{{ page.date }}" ><span>{{ page.meta.date|date(config.date_format)}}</span></time>
+                                                <a href="{{ base_url }}/{{ page.url }}">
+                                                    <time class="vtl_date meta" datetime="{{ page.meta.date }}" ><span>{{ page.meta.date|date(config.date_format)}}</span></time>
                                                     <div class="vtl_point"><i class="fa"></i></div>
                                                     <div class="vtl_label">
                                                         {{ page.title }}
@@ -58,7 +58,7 @@
                 {% for page in pages|reverse|sort %}
                     {% if page.meta.category is sameas(cate) and page.meta.template != 'category' %}
                     <li>
-                        <a href="/{{ page.url }}">
+                        <a href="{{ base_url }}/{{ page.url }}">
                             <i class="fa"></i>
                             {{ page.title }}
                         </a>
@@ -67,7 +67,7 @@
                         {% set catesub = page.title %}
                         {% if catesub is not sameas(cate) %}
                             <li>
-                                <a href="/{{ page.url }}">
+                                <a href="{{ base_url }}/{{ page.url }}">
                                     <i class="fa"></i>
                                     {{ page.title }}
                                 </a>
@@ -75,8 +75,8 @@
                                 {% for page in pages %}
                                     {% if page.meta.category is sameas(catesub) and page.meta.template != 'category' %}
                                         <li>
-                                            <a href="/{{ page.url }}">
-                                                <time class="vtl_date meta" datetime="{{ page.date }}" ><span>{{ page.meta.date|date(config.date_format)}}</span></time>
+                                            <a href="{{ base_url }}/{{ page.url }}">
+                                                <time class="vtl_date meta" datetime="{{ page.meta.date }}" ><span>{{ page.meta.date|date(config.date_format)}}</span></time>
                                                 <div class="vtl_point"><i class="fa"></i></div>
                                                 <div class="vtl_label">
                                                     {{ page.title }}
