@@ -8,8 +8,10 @@
 
     <section id="content">
         <div class="inner">
+
             {# front page :  check the title of the content root index.md #}
             {% if meta.title == 'Blog' %}
+
                 {# Require Paginator plugin #}
                 {% for page in paginator.pages[paginator.offset] %}
                     <article class="post">
@@ -26,10 +28,13 @@
                     </article>
                 {% endfor %}
                 {# Pagination / Require Paginator plugin #}
+
+
                 <div class="pagination clearfix">
+
                     <ul>
-                        <li {{ paginator.prev is empty ? 'class="noprevnext"' : '' }}>
-                            <a id="prev_page_link" title="Plus récents" href="{{ paginator.prev }}">
+                        <li {{ paginator.previous is empty ? 'class="noprevnext"' : '' }}>
+                            <a id="prev_page_link" title="Plus récents" href="{{ paginator.previous }}">
                                 <i class="fa fa-clock-o"></i><i class="fa fa-angle-right"></i>
                             </a>
                         </li>
