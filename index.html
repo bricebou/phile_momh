@@ -10,96 +10,84 @@
         <div class="inner">
             {# front page :  check the title of the content root index.md #}
             {% if meta.title == 'Blog' %}
-                {% for page in pages %}
-                    {# keeping only blog posts based on the template meta #}
-                    {% if page.meta.template == 'index' and page.meta.title != 'Blog' %}
-                        <article class="post">
-                            <h1><a href="{{ page.url }}">{{ page.title }}</a></h1>
-                            <p class="meta clearfix">
-                                <span class="date_lsp">
-                                    le {{ page.meta.date|date(config.date_format) }} {% if page.meta.category %}dans {{ page.meta.category }} {% endif %}
-                                </span>
-                                <span class="tags_lsp">
-                                    {% if page.meta.tags_array %}<i class="fa fa-tags"></i>{% for tag in page.meta.tags_array %}<a class="hvr_over" href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>{% endfor %}{% endif %} 
-                                </span>
-                            </p>
-                            <p class="excerpt">{{ page.content|striptags|limit_words }}</p>
-                        </article>
-                    {% endif %}
+                {# Require Paginator plugin #}
+                {% for page in paginator.pages[paginator.offset] %}
+                    <article class="post">
+                        <h1><a href="{{ page.url }}">{{ page.title }}</a></h1>
+                        <p class="meta clearfix">
+                            <span class="date_lsp">
+                                le {{ page.meta.date|date(config.date_format) }} {% if page.meta.category %}dans {{ page.meta.category }} {% endif %}
+                            </span>
+                            <span class="tags_lsp">
+                                {% if page.meta.tags_array %}<i class="fa fa-tags"></i>{% for tag in page.meta.tags_array %}<a class="hvr_over" href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>{% endfor %}{% endif %} 
+                            </span>
+                        </p>
+                        <p class="excerpt">{{ page.content|striptags|limit_words }}</p>
+                    </article>
                 {% endfor %}
-                
+                {# Pagination / Require Paginator plugin #}
                 <div class="pagination clearfix">
                     <ul>
-                        <li>{{ prev_page_link }}</li>
-                        {% for i in 1..total_pages %}
-                            {% if i == page_number %}
-                                <li class="pi pi_a"><a href="/page/{{ i }}" class="page_item page_active"><i class="fa fa-clock-o"></i><span>{{ i }}</span></a></li>
+                        <li {{ paginator.prev is empty ? 'class="noprevnext"' : '' }}>
+                            <a id="prev_page_link" title="Plus récents" href="{{ paginator.prev }}">
+                                <i class="fa fa-clock-o"></i><i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                            
+                        {% for i in 0..paginator.pages|length -1 %}
+                            {% if i == paginator.offset %}
+                                <li class="pi pi_a"><a href="/?page={{ i }}" class="page_item page_active"><i class="fa fa-clock-o"></i><span>{{ i }}</span></a></li>
                             {% else %}
-                                <li class="pi"><a href="/page/{{ i }}" class="page_item">{{ i }}</a></li>
+                                <li class="pi"><a href="/?page={{ i }}" class="page_item">{{ i }}</a></li>
                             {% endif %}
                         {% endfor %}
-                        <li>{{ next_page_link }}</li>
+
+                        <li {{ paginator.next is empty ? 'class="noprevnext"' : '' }}><a id="next_page_link" title="Plus anciens" href="{{ paginator.next }}"><i class="fa fa-angle-left"></i><i class="fa fa-clock-o"></i></a></li>
                     </ul>
+                    
                 </div>
-            <!-- END front page -->
-            <!-- Error 404 page -->
+            {# END frontpage #}
+            {# Error 404 page #}
             {% elseif meta.title == "Error 404" %}
                 <article>
                     {{ content }}
                 </article>
-            <!-- END Error 404 page -->
-            <!-- blog posts -->
+            {# END Error 404 page #}
+            {# blog posts #}
             {% else %}
                 <article>
                     <h1>{{ meta.title }} </h1>
                     <p class="meta clearfix">
                         <span class="date_lsp">
-                            {% if meta.date %}le {{ meta.date|date("d/m/Y", "Europe/Paris") }}{% endif %} {% if meta.category %}dans {{ meta.category }} {% endif %}
+                            {% if meta.date %}le {{ meta.date|date(config.date_format) }}{% endif %} {% if meta.category %}dans {{ meta.category }} {% endif %}
                         </span>
                         <span class="tags_lsp">
-                            {% if meta.tags %}<i class="fa fa-tags"></i>{% for tag in meta.tags %}<a class="hvr_over" href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>{% endfor %}{% endif %} 
+                            {% if meta.tags_array %}<i class="fa fa-tags"></i>{% for tag in meta.tags_array %}<a class="hvr_over" href="{{ base_url }}/tag/{{ tag }}">#{{ tag }}</a>{% endfor %}{% endif %}         
                         </span>
                     </p>
                     <div class="article">
                         {{ content }}
                     </div>  
 
-                {% if meta.coordinates %}
-                    <p>Coordonnées :</p>
-                    <ul>
-                    {% for coordinate in meta.coordinates %}
-                        <li>{{ coordinate }}</li>
-                    {% endfor %}
-                    </ul>
-                {% endif %}
-                {% if meta.address %}
-                    <p>Adresses :</p>
-                    <ul>
-                    {% for address in meta.address %}
-                        <li>{{ address }}</li>
-                    {% endfor %}
-                    </ul>
-                {% endif %}
-
-                    {{ map_article }}
+                    {# Pagination for articles/blog posts #}
                 
                     <div class="pagination_article">
-                    {% if next_page %}
-                        <a href="{{ next_page.url }}" class="pa_recent">
+                    {% if current_page.nextPage %}
+                        <a href="/{{ current_page.nextPage.url }}" class="pa_recent">
                             <div class="pa_arrow"><i class="fa fa-angle-double-left"></i></div>
                             <div class="pa_title">
-                                <span class="pa_date">{{ next_page.date|date("d/m/Y", "Europe/Paris") }}</span>
+                                <span class="pa_date">{{ current_page.nextPage.meta.date|date(config.date_format) }}</span>
                                 <br>
-                                <span>{{ next_page.title }}</span>
+                                <span>{{ current_page.nextPage.title }}</span>
                             </div>
                         </a>    
                     {% endif %} 
-                    {% if prev_page %}
-                        <a href="{{ prev_page.url }}" class="pa_older">
+                    {% if current_page.previousPage %}
+                        <a href="/{{ current_page.previousPage.url }}" class="pa_older">
                             <div class="pa_title">
-                                <span>{{ prev_page.title }}</span>
+                                <span>{{ current_page.previousPage.title }}</span>
                                 <br>
-                                <span class="pa_date">{{ prev_page.date|date("d/m/Y", "Europe/Paris") }}</span>
+                                <span class="pa_date">{{ current_page.previousPage.meta.date|date(config.date_format) }}</span>
                             </div>
                             <div class="pa_arrow"><i class="fa fa-angle-double-right"></i></div>
                         </a>
@@ -107,14 +95,14 @@
                     </div>
                  
                 </article>
-            <!-- END blog posts -->
+            {# END blog posts #}
             {% endif %}
 
 
         </div> <!-- END .inner -->
     </section>
     
-    <!-- FOOTER -->
+
     {% include 'includes/footer.html' %}
 
 
