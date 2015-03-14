@@ -317,6 +317,9 @@ article {
     padding: 0;
     text-align: center;
 		
+		li.noprevnext {
+			display: none!important;
+		}
 
 		& li {
 			display: none;
